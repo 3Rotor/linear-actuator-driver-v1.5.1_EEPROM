@@ -2,7 +2,7 @@
 //  For controlling a 12v DC driven Chinesium Linear actuator with no positional feedback.
 //  Solar location input can be used for precise tracking.
 //  2 Limit Stop inputs  are available.
-//  Bluetooth connectivity to Android devices for remote control.$$$$$$$$$$$$$$$$$$$$$
+//  Bluetooth connectivity to Android devices for remote control.
 
 #include <Wire.h>
 #include <EEPROM.h>
