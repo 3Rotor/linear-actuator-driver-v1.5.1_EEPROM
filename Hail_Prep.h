@@ -1,0 +1,2 @@
+void Hail_Prep();
+
