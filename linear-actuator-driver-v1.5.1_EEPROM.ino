@@ -1,7 +1,6 @@
 //  The FUCK ESKOM Project.
 //  For controlling a 12v DC driven Chinesium Linear actuator with no positional feedback.
 //  Solar location input can be used for precise tracking.
-//  2 Limit Stop inputs  are available.
 //  Bluetooth connectivity to Android devices for remote control.
 
 #include <Wire.h>
@@ -19,7 +18,7 @@
 
 SoftwareSerial mySerial(5, 2); // RX, TX
 
-/*  testing git xhanges on desktop side  >>> laptop
+/*  
    _____        _
   /  ___|      | |
   \ `--.   ___ | |_  _   _  _ __
