@@ -1,7 +1,7 @@
 void Show_Telemetry(double timervalue)
 {
 
-  if ( millis() > (ST_Savetime + 10)) {
+  if ( millis() > (ST_Savetime + 1000)) {
 //    Calculate_Ambient_Lightlevel();
 
     Serial.println("***Serial commands***");
@@ -41,12 +41,16 @@ void Show_Telemetry(double timervalue)
     Serial.println(" ");
 
     mySerial.print("<");
-    mySerial.print("East Sensor:");
-    mySerial.println(ALE);
-    mySerial.print("West Sensor:");
-    mySerial.println(ALW);
+//	mySerial.println("EEPROM");
+    mySerial.print("West:");
+    mySerial.print(ALW);	
+	mySerial.print("           East: ");
+	mySerial.println(ALE);
+
     mySerial.print("Sun location:");
-    mySerial.println(PR);
+    mySerial.print(PR); 
+	mySerial.print("     aim: ");
+	mySerial.println(aim);
     mySerial.print("AmbientLight:");
     mySerial.println(Ambient_Light);
     mySerial.print("Status:");
