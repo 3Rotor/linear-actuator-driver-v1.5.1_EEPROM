@@ -19,7 +19,7 @@
 
 SoftwareSerial mySerial(5, 2); // RX, TX
 
-/*  testing git cloud  changes on laptop...
+/*  testing git xhanges on desktop side  >>> laptop
    _____        _
   /  ___|      | |
   \ `--.   ___ | |_  _   _  _ __
