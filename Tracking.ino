@@ -21,9 +21,9 @@ void Track_The_Sun()
 
 		//we are on target, stop moving.
 		FullStop();
-		FullStop();
-		FullStop();
-		delay(5000);
+	//	FullStop();
+	//	FullStop();
+		delay(50);
 
 	}
 	else {

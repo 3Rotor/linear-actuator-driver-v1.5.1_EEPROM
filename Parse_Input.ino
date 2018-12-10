@@ -7,6 +7,25 @@ void Parse_Input()
 		(ComsInput != "HLL") &&
 		(ComsInput != "T")) {
 
+		//DO WHAT IS NEEDED FOR SNDING BACK THE EEPROM DATA 
+
+		if (ComsInput == "SETTINGS") {
+
+			ReturnSettings();
+
+
+
+		}
+		if (ComsInput == "WRTSTN") {
+
+			BurnEEPROM();
+
+
+
+		}
+
+
+
 	}
 	else {
 		delay(20);

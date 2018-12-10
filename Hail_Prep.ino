@@ -9,19 +9,19 @@ void Hail_Prep()
     delay(20);
 
     long ttt = millis();
-    while ((millis() < ttt + 95000)) {
+    while ((millis() < ttt + time2run)) {
       Serial.print(" Prepping for Hail. pulling panel East : ");
-      Serial.println(ttt + 95000 - millis());
+      Serial.println(ttt + time2run - millis());
       while (mySerial.available() > 0) {
         ComsInput =  mySerial.readStringUntil(':');
         New_Aim = mySerial.readStringUntil('>').toInt();
-        aim = map(New_Aim, 0, 100, -20, 20);
+        aim = map(New_Aim, 0, 100, -30, 30);
         Parse_Input();
       }
       if (Status == "prepped") break;
 
       Track_East();
-      Show_Telemetry(ttt + 95000 - millis());
+      Show_Telemetry(ttt + time2run - millis());
 
     }
     FullStop();
