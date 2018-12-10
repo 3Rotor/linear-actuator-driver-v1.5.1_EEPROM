@@ -18,7 +18,7 @@
 
 SoftwareSerial mySerial(5, 2); // RX, TX
 
-/*  
+/*
    _____        _
   /  ___|      | |
   \ `--.   ___ | |_  _   _  _ __
@@ -43,7 +43,7 @@ void setup()
 
 	sID = EEPROM.read(1022);
 
-	//    mic01
+
 
 	time2run = EEPROMReadlong(20);
 	waittime = EEPROMReadlong(24);
@@ -51,61 +51,6 @@ void setup()
 	daylightlevel = EEPROMReadlong(32);
 	target_width = EEPROMReadlong(36);
 	aim = EEPROMReadlong(40);
-
-
-
-
-	/*switch (sID) { //load defaults for each individual Arduino as identified by their EEPROM ID
-	case 1:
-		time2run = 70000;
-		waittime = 50000;
-		aim = 0;
-		directsunlight = 880;
-		target_width = 30;
-		daylightlevel = 1000;
-		break;
-
-	case 2:
-		time2run = 75000;
-		waittime = 50001;
-		directsunlight = 970;
-		aim = 25;
-		target_width = 3;
-		daylightlevel = 1000;
-		break;
-
-	case 3:
-		time2run = 65432;
-		waittime = 54321;
-		directsunlight = 890;
-		aim = 0;
-		target_width = 15;
-		daylightlevel = 1234;
-		break;
-
-	default:
-		time2run = 65432;
-		waittime = 50001;
-		directsunlight = 990;
-		aim = 110;
-		target_width = 30;
-		daylightlevel = 1000;
-		break;
-
-
-	}
-
-
-	Serial.print("Arduino ID:  ");
-	Serial.println(sID);
-	Serial.print("wait time:  ");
-	Serial.println(waittime);
-	*/
-
-	//  for (int i = 0; i < AC; i++)AL_Ave[i] = 0;
-	//  for (int i = 0; i < AC; i++)PR_Ave[i] = 0;
-	//  for (int i = 0; i < AC; i++)ALE_Ave[i] = 0;
-	//  for (int i = 0; i < AC; i++)ALW_Ave[i] = 0;
 
 	//Set output pins
 	pinMode(Relay1, OUTPUT); // Set pin 7 as OUTPUT
@@ -154,7 +99,7 @@ void loop() {
 	//delay(1000);
 	while (mySerial.available() > 0) {
 		ComsInput = mySerial.readStringUntil(':');
-		Serial.print("ComsInput:  ");
+		Serial.print(F("ComsInput:  "));
 		Serial.println(ComsInput);
 
 		if (ComsInput == "WRTSTN")
@@ -171,12 +116,11 @@ void loop() {
 		{
 			New_Aim = mySerial.readStringUntil('>').toInt();
 			aim = map(New_Aim, 0, 100, -30, 30);
-			Serial.print("This is BlueTooth Input:  ");
+			Serial.print(F("This is BlueTooth Input:  "));
 			Serial.println(ComsInput);
-			Serial.print("Speed:  ");
+			Serial.print(F("Speed:  "));
 			Serial.println(New_Aim);
 
-			//delay(1500);
 		}
 		Parse_Input();
 
@@ -185,7 +129,7 @@ void loop() {
 	while (Serial.available() > 0) {
 		ComsInput = Serial.readStringUntil(':');
 		New_Aim = Serial.readStringUntil('~').toInt();
-		//    Serial.print("This is USB Input:  ");
+		//    Serial.print(F("This is USB Input:  "));
 		//    Serial.println(ComsInput);
 		Parse_Input();
 	}
@@ -203,12 +147,10 @@ void loop() {
 			Tracking = false;
 			long ttt = millis();
 			Track_East();
-			// Track_East();
 			while (millis() < ttt + time2run) {
 				Read_Sensors();
-				Serial.print(" Prepping for nighttime. : ");
+				Serial.print(F(" Prepping for nighttime. : "));
 				Serial.println(ttt + time2run - millis());
-				//			while (mySerial.available() > 0) {
 				if (mySerial.available() > 0) {
 					ComsInput = mySerial.readStringUntil(':');
 					New_Aim = mySerial.readStringUntil('>').toInt();
@@ -227,7 +169,7 @@ void loop() {
 			ttt = millis();
 			while (millis() < (ttt + (0.55 * time2run))) {
 				Read_Sensors();
-				Serial.print(" Prepping for nighttime. : ");
+				Serial.print(F(" Prepping for nighttime. : "));
 
 				Serial.println(ttt + (0.55 * time2run) - millis());
 				while (mySerial.available() > 0) {
@@ -259,14 +201,12 @@ void loop() {
 			Status = "Going East for first-light ";
 			Tracking = false;
 			Track_East();
-			//Track_East();
 
 			long ttt = millis();
-			FirstLight = ttt;
+			
 			while (millis() < ttt + time2run) {
 				Read_Sensors();
-
-				Serial.print(" Prepping for morning startup : ");
+				Serial.print(F(" Prepping for morning startup : "));
 				Serial.println(ttt + time2run - millis());
 				while (mySerial.available() > 0) {
 					ComsInput = mySerial.readStringUntil(':');
@@ -280,7 +220,6 @@ void loop() {
 			Status = "prepped";
 			Tracking = false;
 			FullStop();
-			//	FullStop();
 		}
 	}
 
@@ -289,17 +228,12 @@ void loop() {
 	{
 		//    if ((Ambient_Light > 800))
 
-		FirstLight = -14400000;
-
-		if ((millis() - FirstLight > 14400000) && (Status != "daylight")) {
+		
+		if  (Status != "daylight") {
 			Status = "daylight";
 			Tracking = true;
 		}
-		else {
-			Show_Telemetry((FirstLight + 14400000 - millis()) / 1000);
-
-
-		}
+		
 	}
 	if ((Tracking) && (Status == "daylight")) { // to get some bounce out of the clouds moving in
 
@@ -329,22 +263,22 @@ void EEPROMWritelong(int address, long value)
 	byte two = ((value >> 16) & 0xFF);
 	byte one = ((value >> 24) & 0xFF);
 
-	//Write the 4 bytes into the eeprom memory.
+	//Write the 4 bytes into the eeprom memory, only if it changed.
 	if (EEPROM.read(address) != four) {
 		EEPROM.write(address, four);
-		Serial.println("wrote four");
+		Serial.println(F("wrote four"));
 	}
 	if (EEPROM.read(address + 1) != three) {
 		EEPROM.write(address + 1, three);
-		Serial.println("wrote three");
+		Serial.println(F("wrote three"));
 	}
 	if (EEPROM.read(address + 2) != two) {
 		EEPROM.write(address + 2, two);
-		Serial.println("wrote two");
+		Serial.println(F("wrote two"));
 	}
 	if (EEPROM.read(address + 3) != one) {
 		EEPROM.write(address + 3, one);
-		Serial.println("wrote one");
+		Serial.println(F("wrote one"));
 	}
 }
 
@@ -367,11 +301,11 @@ long EEPROMReadlong(long address)
 void BurnEEPROM()
 {
 
-	Serial.print("we are now burning the eeprom:  ");
-	mySerial.print("<");
-	mySerial.println("EEPROM Updating.......>");
+	Serial.print(F("we are now burning the eeprom:  "));
+	mySerial.print(F("<"));
+	mySerial.println(F("EEPROM Updating.......>"));
 
-	delay(1000);
+	delay(500);
 
 	EEPROMWritelong(20, time2run);
 	EEPROMWritelong(24, waittime);
@@ -379,55 +313,27 @@ void BurnEEPROM()
 	EEPROMWritelong(32, daylightlevel);
 	EEPROMWritelong(36, target_width);
 	EEPROMWritelong(40, aim);
-	mySerial.print("<");
-	mySerial.println("Update Compleste.......>");
-	delay(1000);
+	mySerial.print(F("<"));
+	mySerial.println(F("Update Complete.......>"));
+	delay(2000);
 
 
 }
 
 void ReturnSettings()
 {
-	/*
-	time2run = EEPROMReadlong(20);
-	waittime = EEPROMReadlong(24);
-	directsunlight = EEPROMReadlong(28);
-	daylightlevel = EEPROMReadlong(32);
-	target_width = EEPROMReadlong(36);
-
-
-
-	Serial.print("time2run:  ");
-	Serial.println(time2run);
-	Serial.print("waittime:  ");
-	Serial.println(waittime);
-	Serial.print("directsunlight:  ");
-	Serial.println(directsunlight);
-	Serial.print("target_width:  ");
-	Serial.println(target_width);
-	Serial.print("daylightlevel:  ");
-	Serial.println(daylightlevel);
-	delay(4000);
-
-	*/
-
-
-
-	mySerial.print("<");
-
-	mySerial.print("SETTINGS:");
+	mySerial.print(F("<"));
+	mySerial.print(F("SETTINGS:"));
 	mySerial.print(EEPROMReadlong(20));
-	mySerial.print(":");
+	mySerial.print(F(":"));
 	mySerial.print(EEPROMReadlong(24));
-	mySerial.print(":");
+	mySerial.print(F(":"));
 	mySerial.print(EEPROMReadlong(28));
-	mySerial.print(":");
+	mySerial.print(F(":"));
 	mySerial.print(EEPROMReadlong(32));
-	mySerial.print(":");
+	mySerial.print(F(":"));
 	mySerial.print(EEPROMReadlong(36));
-	mySerial.print(">");
-
-	delay(4000);
-
+	mySerial.print(F(">"));
+	delay(40);
 
 }

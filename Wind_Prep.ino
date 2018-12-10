@@ -2,15 +2,15 @@ void Wind_Prep()
 {
 	if (Status != "Wind") {
 		Serial.println(Status);
-		Serial.println(" Prepping for high Winds.");
-		Serial.println(" Please strap the Panel down to the base");
-		Serial.println(" On all 4 corners.");
+		Serial.println(F(" Prepping for high Winds."));
+		Serial.println(F(" Please strap the Panel down to the base"));
+		Serial.println(F(" On all 4 corners."));
 		Status = "Wind";
 		Tracking = false;
 		delay(20);
 		long ttt = millis();
 		while ((millis() < ttt + time2run)) {
-			Serial.print(" Prepping for high Winds. : ");
+			Serial.print(F(" Prepping for high Winds. : "));
 			Serial.println(ttt + time2run - millis());
 			while (mySerial.available() > 0) {
 				ComsInput = mySerial.readStringUntil(':');
@@ -26,7 +26,7 @@ void Wind_Prep()
 		delay(20);
 		ttt = millis();
 		while ((millis() < ttt + (time2run / 2))) {
-			Serial.print(" Prepping for high Winds. : ");
+			Serial.print(F(" Prepping for high Winds. : "));
 			Serial.println(ttt + (time2run / 2) - millis());
 			while (mySerial.available() > 0) {
 				ComsInput = mySerial.readStringUntil(':');

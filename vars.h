@@ -34,7 +34,6 @@ int LZ_arrayIndex = 0;
 double LZ_total = 0;
 double Span = 0;
 
-//mic04
 const int ALE_AC = 6;
 double ALE_readings[ALE_AC];
 int ALE_arrayIndex = 0;

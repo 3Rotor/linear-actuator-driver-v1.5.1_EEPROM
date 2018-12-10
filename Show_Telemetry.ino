@@ -4,33 +4,33 @@ void Show_Telemetry(double timervalue)
   if ( millis() > (ST_Savetime + 1000)) {
 //    Calculate_Ambient_Lightlevel();
 
-    Serial.println("***Serial commands***");
-    Serial.println("EST:  move panel East");
-    Serial.println("WST:  Move Panel West");
-    Serial.println("HLL:  Prep for Hail");
-    Serial.println("WND:  Prep for Wind");
-    Serial.println("S:  Stop Panel Action");
-    Serial.println("T:  Start Tracking");
-    Serial.println("*********************");
-    Serial.println("");
+    Serial.println(F("***Serial commands***"));
+    Serial.println(F("EST:  move panel East"));
+    Serial.println(F("WST:  Move Panel West"));
+    Serial.println(F("HLL:  Prep for Hail"));
+    Serial.println(F("WND:  Prep for Wind"));
+    Serial.println(F("S:  Stop Panel Action"));
+    Serial.println(F("T:  Start Tracking"));
+    Serial.println(F("*********************"));
+    Serial.println(F(""));
 
 
 
-    Serial.print("East Sensor:");
+    Serial.print(F("East Sensor:"));
     Serial.println(ALE);
-    Serial.print("West Sensor:");
+    Serial.print(F("West Sensor:"));
     Serial.println(ALW);
-    Serial.print("Sun location.................:");
+    Serial.print(F("Sun location.................:"));
     Serial.println(PR);
-    Serial.print("aim: ");
+    Serial.print(F("aim: "));
     Serial.println(aim);
-    Serial.print("AmbientLight:");
+    Serial.print(F("AmbientLight:"));
     Serial.println(Ambient_Light);
-    Serial.print("Status:");
+    Serial.print(F("Status:"));
     Serial.println(Status);
-    Serial.print("Tracking:");
+    Serial.print(F("Tracking:"));
     Serial.println(Tracking);
-    Serial.print("Timer:");
+    Serial.print(F("Timer:"));
     if (timervalue > 0) {
       Serial.println(timervalue);
       timervalueold = timervalue;
@@ -38,26 +38,26 @@ void Show_Telemetry(double timervalue)
       Serial.println(timervalueold);
     }
 
-    Serial.println(" ");
+    Serial.println(F(" "));
 
-    mySerial.print("<");
-//	mySerial.println("EEPROM");
-    mySerial.print("West:");
+    mySerial.print(F("<"));
+//	mySerial.println(F("EEPROM"));
+    mySerial.print(F("West:"));
     mySerial.print(ALW);	
-	mySerial.print("           East: ");
+	mySerial.print(F("           East: "));
 	mySerial.println(ALE);
 
-    mySerial.print("Sun location:");
+    mySerial.print(F("Sun location:"));
     mySerial.print(PR); 
-	mySerial.print("     aim: ");
+	mySerial.print(F("     aim: "));
 	mySerial.println(aim);
-    mySerial.print("AmbientLight:");
+    mySerial.print(F("AmbientLight:"));
     mySerial.println(Ambient_Light);
-    mySerial.print("Status:");
+    mySerial.print(F("Status:"));
     mySerial.println(Status);
-    mySerial.print("Tracking:");
+    mySerial.print(F("Tracking:"));
     mySerial.println(Tracking);
-    mySerial.print("Timer:");
+    mySerial.print(F("Timer:"));
     if (timervalue > 0) {
       mySerial.println(timervalue);
       timervalueold = timervalue;
@@ -65,7 +65,7 @@ void Show_Telemetry(double timervalue)
       mySerial.println(timervalueold);
     }
 
-    mySerial.print(">");
+    mySerial.print(F(">"));
 
     ST_Savetime = millis();
   }

@@ -1,6 +1,5 @@
 void Read_Sensors() {
 
-//mic03
     //here we take an average over 30 readings to smooth out the resultant
     //time inteval for each adjustment
     ALE_total = ALE_total - ALE_readings[ALE_arrayIndex];
@@ -20,8 +19,6 @@ void Read_Sensors() {
     // At the end of the array (10 items) then start again
     if (ALW_arrayIndex >= ALW_AC)ALW_arrayIndex = 0;
     ALW = ALW_total / (ALW_AC-0);
-
     PR = ALW - ALE;
     Ambient_Light = ALE + ALW;
-
 }

@@ -79,7 +79,7 @@ void Calculate_Ambient_Lightlevel() {
 	| |  | |   | (_| || (__ |   <
 	\_/  |_|    \__,_| \___||_|\_\
 
-  mic02
+  
 */
 void Time_Track() {
 	double Taim = aim + 15; //add to aim more east
@@ -95,8 +95,6 @@ void Time_Track() {
 	// At the end of the array (10 items) then start again
 	if (LZ_arrayIndex >= LZ_AC)LZ_arrayIndex = 0;
 	Span = LZ_total / LZ_AC;
-	//      Serial.print(">>>>>>>>>>>>>>>Span Value>>>>>>>>>>>>>>>>>>>>>>");
-	//      Serial.println(Span);
 
 
 
@@ -105,18 +103,16 @@ void Time_Track() {
 	if (millis() >= tttt + waittime) {
 		delay(50);
 		if (ttt > 5) {
-			Serial.print(">>>>>>>>>>>>>>>Tracking West>>>>>>>>>>>>>>>>>>>>>>");
+			Serial.print(F(">>>>>>>>>>>>>>>Tracking West>>>>>>>>>>>>>>>>>>>>>>"));
 			Serial.println(Span);
 			Track_West(); delay(Span);
 			FullStop();
 		}
 		if (ttt < -5) {
-			Serial.print(">>>>>>>>>>>>>>>>>Tracking East>>>>>>>>>>>>>>>>>>>>");
+			Serial.print(F(">>>>>>>>>>>>>>>>>Tracking East>>>>>Disabled>>>>>>>"));
 			Serial.println(Span);
-			//      Track_West(); delay(Span * 0.01);
 			FullStop();
 		}
-		delay(2000);
 		tttt = millis();
 
 	}
