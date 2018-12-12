@@ -51,6 +51,7 @@ void setup()
 	daylightlevel = EEPROMReadlong(32);
 	target_width = EEPROMReadlong(36);
 	aim = EEPROMReadlong(40);
+	
 
 	//Set output pins
 	pinMode(Relay1, OUTPUT); // Set pin 7 as OUTPUT
@@ -108,18 +109,18 @@ void loop() {
 			waittime = mySerial.readStringUntil(':').toInt();
 			directsunlight = mySerial.readStringUntil(':').toInt();
 			daylightlevel = mySerial.readStringUntil(':').toInt();
-			target_width = mySerial.readStringUntil('>').toInt();
-
+			target_width = mySerial.readStringUntil(':').toInt();
+			aim = mySerial.readStringUntil('>').toInt();
 
 		}
 		else
-		{
+		{/*
 			New_Aim = mySerial.readStringUntil('>').toInt();
 			aim = map(New_Aim, 0, 100, -30, 30);
 			Serial.print(F("This is BlueTooth Input:  "));
 			Serial.println(ComsInput);
 			Serial.print(F("Speed:  "));
-			Serial.println(New_Aim);
+			Serial.println(New_Aim);*/
 
 		}
 		Parse_Input();
@@ -128,7 +129,7 @@ void loop() {
 
 	while (Serial.available() > 0) {
 		ComsInput = Serial.readStringUntil(':');
-		New_Aim = Serial.readStringUntil('~').toInt();
+	//	New_Aim = Serial.readStringUntil('~').toInt();
 		//    Serial.print(F("This is USB Input:  "));
 		//    Serial.println(ComsInput);
 		Parse_Input();
@@ -153,8 +154,8 @@ void loop() {
 				Serial.println(ttt + time2run - millis());
 				if (mySerial.available() > 0) {
 					ComsInput = mySerial.readStringUntil(':');
-					New_Aim = mySerial.readStringUntil('>').toInt();
-					aim = map(New_Aim, 0, 100, -30, 30);
+				//	New_Aim = mySerial.readStringUntil('>').toInt();
+				//	aim = map(New_Aim, 0, 100, -30, 30);
 					Parse_Input();
 				}
 				if (Status == "prepped") break;
@@ -174,8 +175,8 @@ void loop() {
 				Serial.println(ttt + (0.55 * time2run) - millis());
 				while (mySerial.available() > 0) {
 					ComsInput = mySerial.readStringUntil(':');
-					New_Aim = mySerial.readStringUntil('>').toInt();
-					aim = map(New_Aim, 0, 100, -30, 30);
+			//		New_Aim = mySerial.readStringUntil('>').toInt();
+				//	aim = map(New_Aim, 0, 100, -30, 30);
 					Parse_Input();
 				}
 				if (Status == "prepped") break;
@@ -210,8 +211,8 @@ void loop() {
 				Serial.println(ttt + time2run - millis());
 				while (mySerial.available() > 0) {
 					ComsInput = mySerial.readStringUntil(':');
-					New_Aim = mySerial.readStringUntil('>').toInt();
-					aim = map(New_Aim, 0, 100, -30, 30);
+			//		New_Aim = mySerial.readStringUntil('>').toInt();
+			//		aim = map(New_Aim, 0, 100, -30, 30);
 					Parse_Input();
 				}
 				if (Status == "prepped") break;
@@ -315,7 +316,7 @@ void BurnEEPROM()
 	EEPROMWritelong(40, aim);
 	mySerial.print(F("<"));
 	mySerial.println(F("Update Complete.......>"));
-	delay(2000);
+	delay(1000);
 
 
 }
@@ -333,6 +334,8 @@ void ReturnSettings()
 	mySerial.print(EEPROMReadlong(32));
 	mySerial.print(F(":"));
 	mySerial.print(EEPROMReadlong(36));
+	mySerial.print(F(":"));
+	mySerial.print(EEPROMReadlong(40));  //aim
 	mySerial.print(F(">"));
 	delay(40);
 

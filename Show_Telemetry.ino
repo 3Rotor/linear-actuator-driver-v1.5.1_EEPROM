@@ -3,7 +3,7 @@ void Show_Telemetry(double timervalue)
 
   if ( millis() > (ST_Savetime + 1000)) {
 //    Calculate_Ambient_Lightlevel();
-
+	  
     Serial.println(F("***Serial commands***"));
     Serial.println(F("EST:  move panel East"));
     Serial.println(F("WST:  Move Panel West"));
@@ -56,8 +56,14 @@ void Show_Telemetry(double timervalue)
     mySerial.print(F("Status:"));
     mySerial.println(Status);
     mySerial.print(F("Tracking:"));
-    mySerial.println(Tracking);
-    mySerial.print(F("Timer:"));
+    mySerial.print(Tracking); 
+	mySerial.print(F("       Target Width:")); 
+	mySerial.println(target_width); 
+    
+	mySerial.print(F("Timer:")); 
+
+
+
     if (timervalue > 0) {
       mySerial.println(timervalue);
       timervalueold = timervalue;

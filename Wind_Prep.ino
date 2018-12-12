@@ -14,8 +14,8 @@ void Wind_Prep()
 			Serial.println(ttt + time2run - millis());
 			while (mySerial.available() > 0) {
 				ComsInput = mySerial.readStringUntil(':');
-				New_Aim = mySerial.readStringUntil('>').toInt();
-				aim = map(New_Aim, 0, 100, -30, 30);
+//				New_Aim = mySerial.readStringUntil('>').toInt();
+	//			aim = map(New_Aim, 0, 100, -30, 30);
 				Parse_Input();
 			}
 			if (Status == "prepped") break;
@@ -30,8 +30,8 @@ void Wind_Prep()
 			Serial.println(ttt + (time2run / 2) - millis());
 			while (mySerial.available() > 0) {
 				ComsInput = mySerial.readStringUntil(':');
-				New_Aim = mySerial.readStringUntil('>').toInt();
-				aim = map(New_Aim, 0, 100, -30, 30);
+		//		New_Aim = mySerial.readStringUntil('>').toInt();
+			//	aim = map(New_Aim, 0, 100, -30, 30);
 				Parse_Input();
 			}
 			if (Status == "prepped") break;
