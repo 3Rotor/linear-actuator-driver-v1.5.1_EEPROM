@@ -18,7 +18,7 @@
 
 SoftwareSerial mySerial(5, 2); // RX, TX
 
-/* done done
+/* 
    _____        _
   /  ___|      | |
   \ `--.   ___ | |_  _   _  _ __
