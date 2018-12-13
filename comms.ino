@@ -1,5 +1,6 @@
 void comms() {
 	//delay(1000);
+	ComsInput = "";
 	while (mySerial.available() > 0) {
 		ComsInput = mySerial.readStringUntil(':');
 		Serial.print(F("ComsInput:  "));
@@ -30,10 +31,11 @@ void comms() {
 	}
 
 	while (Serial.available() > 0) {
+		//ComsInput = "";
 		ComsInput = Serial.readStringUntil(':');
-		//	New_Aim = Serial.readStringUntil('~').toInt();
-			//    Serial.print(F("This is USB Input:  "));
-			//    Serial.println(ComsInput);
+		//aim = Serial.readStringUntil('~').toInt();
+			   Serial.print(F("This is USB Input:  "));
+			    Serial.println(ComsInput);
 		Parse_Input();
 	}
 
