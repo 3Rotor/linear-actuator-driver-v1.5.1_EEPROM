@@ -1,5 +1,6 @@
 void Hail_Prep()
 {
+	long ST_Savetime = millis();
 	if (Status != "Hail") {
 		Serial.println(F(" Prepping for Hail."));
 		Serial.println(F(" Please strap the Panel down to the base"));
@@ -10,8 +11,11 @@ void Hail_Prep()
 
 		long ttt = millis();
 		while ((millis() < ttt + time2run)) {
-			Serial.print(F(" Prepping for Hail. pulling panel East : "));
-			Serial.println(ttt + time2run - millis());
+			if (millis() > (ST_Savetime + 5000)) {
+				ST_Savetime = millis();
+				Serial.print(F(" Prepping for Hail. pulling panel East : "));
+				Serial.println(ttt + time2run - millis());
+			}
 			comms();
 			if (Status == "prepped") break;
 

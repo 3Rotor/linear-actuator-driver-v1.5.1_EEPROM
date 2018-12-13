@@ -15,17 +15,8 @@ void comms() {
 			target_width = mySerial.readStringUntil(':').toInt();
 			aim = mySerial.readStringUntil('>').toInt();
 
-		}
-		else
-		{/*
-			New_Aim = mySerial.readStringUntil('>').toInt();
-			aim = map(New_Aim, 0, 100, -30, 30);
-			Serial.print(F("This is BlueTooth Input:  "));
-			Serial.println(ComsInput);
-			Serial.print(F("Speed:  "));
-			Serial.println(New_Aim);*/
-
-		}
+		}else { aim = mySerial.readStringUntil('>').toInt(); }
+		
 		Parse_Input();
 
 	}

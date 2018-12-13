@@ -1,5 +1,6 @@
 void Wind_Prep()
 {
+	long ST_Savetime = millis();
 	if (Status != "Wind") {
 		Serial.println(Status);
 		Serial.println(F(" Prepping for high Winds."));
@@ -10,8 +11,11 @@ void Wind_Prep()
 		delay(20);
 		long ttt = millis();
 		while ((millis() < ttt + time2run)) {
-			Serial.print(F(" Prepping for high Winds. : "));
-			Serial.println(ttt + time2run - millis());
+			if (millis() > (ST_Savetime + 5000)) {
+				ST_Savetime = millis();
+				Serial.print(F(" Prepping for high Winds. : "));
+				Serial.println(ttt + time2run - millis());
+			}
 			comms();
 			if (Status == "prepped") break;
 
@@ -21,8 +25,11 @@ void Wind_Prep()
 		delay(20);
 		ttt = millis();
 		while ((millis() < ttt + (time2run / 2))) {
-			Serial.print(F(" Prepping for high Winds. : "));
-			Serial.println(ttt + (time2run / 2) - millis());
+			if (millis() > (ST_Savetime + 5000)) {
+				ST_Savetime = millis();
+				Serial.print(F(" Prepping for high Winds. : "));
+				Serial.println(ttt + (time2run / 2) - millis());
+			}
 			comms();
 			if (Status == "prepped") break;
 			Track_East();

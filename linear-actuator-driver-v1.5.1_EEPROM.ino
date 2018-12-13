@@ -18,6 +18,7 @@
 #include "comms.h"
 
 SoftwareSerial mySerial(5, 2); // RX, TX
+bool debug = false;
 
 /*
    _____        _
@@ -31,6 +32,9 @@ SoftwareSerial mySerial(5, 2); // RX, TX
 */
 void setup()
 {
+
+
+
 	Serial.begin(115200); // Start serial communication with Arduino
 	mySerial.begin(19200); // Start serial communication with Bluetooth module
 
@@ -111,27 +115,38 @@ void loop() {
 			Status = "Nighttime-Prepping";
 			Tracking = false;
 			long ttt = millis();
+			long ST_Savetime = millis();
 			Track_East();
 			while (millis() < ttt + time2run) {
 				Read_Sensors();
-				Serial.print(F(" Prepping for nighttime. : "));
-				Serial.println(ttt + time2run - millis());
+				if (millis() > (ST_Savetime + 5000)) {
+					ST_Savetime = millis();
+					Serial.print(F(" Prepping for nighttime. : "));
+					Serial.println(ttt + time2run - millis());
+
+
+
+				}
 				comms();
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + time2run - millis());
 			}
-			FullStop(); FullStop();
-			delay(1000);
+			FullStop(); 
+			delay(200);
 			//go horisontal
 			Status = "Nighttime-Prepping. Going flat.";
 			Tracking = false;
 			Track_West();
-			ttt = millis();
+			ttt = millis(); 
+			 ST_Savetime = millis();
 			while (millis() < (ttt + (0.55 * time2run))) {
 				Read_Sensors();
-				Serial.print(F(" Prepping for nighttime. : "));
+				if (millis() > (ST_Savetime + 5000)) {
+					ST_Savetime = millis();
+					Serial.print(F(" Prepping for nighttime. : "));
 
-				Serial.println(ttt + (0.55 * time2run) - millis());
+					Serial.println(ttt + (0.55 * time2run) - millis());
+				}
 				comms();
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + (0.55 * time2run) - millis());
@@ -158,11 +173,15 @@ void loop() {
 			Track_East();
 
 			long ttt = millis();
+			long ST_Savetime = millis();
 
 			while (millis() < ttt + time2run) {
 				Read_Sensors();
-				Serial.print(F(" Prepping for morning startup : "));
-				Serial.println(ttt + time2run - millis());
+				if (millis() > (ST_Savetime + 5000)) {
+					ST_Savetime = millis();
+					Serial.print(F(" Prepping for morning startup : "));
+					Serial.println(ttt + time2run - millis());
+				}
 				comms();
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + time2run - millis());
@@ -251,7 +270,7 @@ long EEPROMReadlong(long address)
 void BurnEEPROM()
 {
 
-	Serial.print(F("we are now burning the eeprom:  "));
+	Serial.println(F("we are now burning the eeprom:  "));
 	mySerial.print(F("<"));
 	mySerial.println(F("EEPROM Updating.......>"));
 
