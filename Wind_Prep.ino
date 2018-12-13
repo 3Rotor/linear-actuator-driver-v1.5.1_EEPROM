@@ -12,12 +12,7 @@ void Wind_Prep()
 		while ((millis() < ttt + time2run)) {
 			Serial.print(F(" Prepping for high Winds. : "));
 			Serial.println(ttt + time2run - millis());
-			while (mySerial.available() > 0) {
-				ComsInput = mySerial.readStringUntil(':');
-//				New_Aim = mySerial.readStringUntil('>').toInt();
-	//			aim = map(New_Aim, 0, 100, -30, 30);
-				Parse_Input();
-			}
+			comms();
 			if (Status == "prepped") break;
 
 			Track_West();
@@ -28,12 +23,7 @@ void Wind_Prep()
 		while ((millis() < ttt + (time2run / 2))) {
 			Serial.print(F(" Prepping for high Winds. : "));
 			Serial.println(ttt + (time2run / 2) - millis());
-			while (mySerial.available() > 0) {
-				ComsInput = mySerial.readStringUntil(':');
-		//		New_Aim = mySerial.readStringUntil('>').toInt();
-			//	aim = map(New_Aim, 0, 100, -30, 30);
-				Parse_Input();
-			}
+			comms();
 			if (Status == "prepped") break;
 			Track_East();
 			Show_Telemetry(ttt + (time2run/2) - millis());

@@ -19,7 +19,7 @@
 
 SoftwareSerial mySerial(5, 2); // RX, TX
 
-/* 
+/*
    _____        _
   /  ___|      | |
   \ `--.   ___ | |_  _   _  _ __
@@ -52,7 +52,7 @@ void setup()
 	daylightlevel = EEPROMReadlong(32);
 	target_width = EEPROMReadlong(36);
 	aim = EEPROMReadlong(40);
-	
+
 
 	//Set output pins
 	pinMode(Relay1, OUTPUT); // Set pin 7 as OUTPUT
@@ -116,12 +116,7 @@ void loop() {
 				Read_Sensors();
 				Serial.print(F(" Prepping for nighttime. : "));
 				Serial.println(ttt + time2run - millis());
-				if (mySerial.available() > 0) {
-					ComsInput = mySerial.readStringUntil(':');
-				//	New_Aim = mySerial.readStringUntil('>').toInt();
-				//	aim = map(New_Aim, 0, 100, -30, 30);
-					Parse_Input();
-				}
+				comms();
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + time2run - millis());
 			}
@@ -137,12 +132,7 @@ void loop() {
 				Serial.print(F(" Prepping for nighttime. : "));
 
 				Serial.println(ttt + (0.55 * time2run) - millis());
-				while (mySerial.available() > 0) {
-					ComsInput = mySerial.readStringUntil(':');
-			//		New_Aim = mySerial.readStringUntil('>').toInt();
-				//	aim = map(New_Aim, 0, 100, -30, 30);
-					Parse_Input();
-				}
+				comms();
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + (0.55 * time2run) - millis());
 			}
@@ -168,17 +158,12 @@ void loop() {
 			Track_East();
 
 			long ttt = millis();
-			
+
 			while (millis() < ttt + time2run) {
 				Read_Sensors();
 				Serial.print(F(" Prepping for morning startup : "));
 				Serial.println(ttt + time2run - millis());
-				while (mySerial.available() > 0) {
-					ComsInput = mySerial.readStringUntil(':');
-			//		New_Aim = mySerial.readStringUntil('>').toInt();
-			//		aim = map(New_Aim, 0, 100, -30, 30);
-					Parse_Input();
-				}
+				comms();
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + time2run - millis());
 			}
@@ -193,12 +178,12 @@ void loop() {
 	{
 		//    if ((Ambient_Light > 800))
 
-		
-		if  (Status != "daylight") {
+
+		if (Status != "daylight") {
 			Status = "daylight";
 			Tracking = true;
 		}
-		
+
 	}
 	if ((Tracking) && (Status == "daylight")) { // to get some bounce out of the clouds moving in
 
