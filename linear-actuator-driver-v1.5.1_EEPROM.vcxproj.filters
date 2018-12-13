@@ -23,6 +23,7 @@
     <None Include="Show_Telemetry.ino" />
     <None Include="Tracking.ino" />
     <None Include="Wind_Prep.ino" />
+    <None Include="comms.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.linear-actuator-driver-v1.5.1_EEPROM.vsarduino.h">
