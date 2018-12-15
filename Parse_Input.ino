@@ -44,7 +44,6 @@ void Parse_Input()
 		}
 		else if ((ComsInput == "S") && (Status != "Hail") && (Status != "Wind")) {
 			Tracking = false;
-
 			FullStop();
 		}
 		else if ((ComsInput == "HLL") && (Status != "Hail") && (Status != "Wind")) {

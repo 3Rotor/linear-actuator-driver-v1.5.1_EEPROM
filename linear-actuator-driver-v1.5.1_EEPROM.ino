@@ -20,6 +20,8 @@
 SoftwareSerial mySerial(5, 2); // RX, TX
 bool debug = false;
 
+void(*resetFunc) (void) = 0; //declare reset function @ address 0
+
 /*
    _____        _
   /  ___|      | |
@@ -102,6 +104,10 @@ void setup()
 */
 
 void loop() {
+	if (millis() > 1200000) {
+		Serial.print("resetting ............");
+			delay(1000);
+		resetFunc(); }
 
 	comms();
 
@@ -131,14 +137,13 @@ void loop() {
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + time2run - millis());
 			}
-			FullStop(); 
-			delay(200);
+			FullStop();
 			//go horisontal
 			Status = "Nighttime-Prepping. Going flat.";
 			Tracking = false;
 			Track_West();
-			ttt = millis(); 
-			 ST_Savetime = millis();
+			ttt = millis();
+			ST_Savetime = millis();
 			while (millis() < (ttt + (0.55 * time2run))) {
 				Read_Sensors();
 				if (millis() > (ST_Savetime + 5000)) {
@@ -151,7 +156,7 @@ void loop() {
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + (0.55 * time2run) - millis());
 			}
-			FullStop(); FullStop();
+			FullStop(); 
 			Status = "Nighttime";
 			Tracking = false;
 		}

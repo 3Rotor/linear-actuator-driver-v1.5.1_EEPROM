@@ -1,17 +1,16 @@
 
 void Track_West()
 {
+	delay(100);
 	digitalWrite(Relay2, LOW);
 	digitalWrite(Relay1, HIGH);
-	//  delay(10);
-
 }
 
 void Track_East()
 {
+	delay(100);
 	digitalWrite(Relay1, LOW);
 	digitalWrite(Relay2, HIGH);
-
 }
 
 void Track_The_Sun()
@@ -21,9 +20,6 @@ void Track_The_Sun()
 
 		//we are on target, stop moving.
 		FullStop();
-	//	FullStop();
-	//	FullStop();
-		delay(50);
 
 	}
 	else {
@@ -116,7 +112,6 @@ void Time_Track() {
 		tttt = millis();
 
 	}
-	delay(200);
 	FullStop();
 	Show_Telemetry(tttt + waittime - millis());
 
