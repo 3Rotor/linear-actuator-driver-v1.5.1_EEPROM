@@ -1,7 +1,7 @@
 void Show_Telemetry(double timervalue)
 {
 
-  if ( millis() > (ST_Savetime + 1000)) {
+  if ( millis() > (ST_Savetime + 750)) {
 //    Calculate_Ambient_Lightlevel();
 	
 	  if (debug) {
@@ -38,7 +38,7 @@ void Show_Telemetry(double timervalue)
 			  timervalueold = timervalue;
 		  }
 		  else {
-			  Serial.println(timervalueold);
+			  Serial.println(millis());
 		  }
 
 		  Serial.println(F(" "));
@@ -72,7 +72,7 @@ void Show_Telemetry(double timervalue)
       mySerial.print(timervalue);
       timervalueold = timervalue;
     } else {
-      mySerial.print(timervalueold);
+      mySerial.print(millis());
     }
 
 	mySerial.print(F("       RAM: "));          // F() macro frees up 4 bytes of RAM
