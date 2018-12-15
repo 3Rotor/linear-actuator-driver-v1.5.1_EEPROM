@@ -69,11 +69,14 @@ void Show_Telemetry(double timervalue)
 
 
     if (timervalue > 0) {
-      mySerial.println(timervalue);
+      mySerial.print(timervalue);
       timervalueold = timervalue;
     } else {
-      mySerial.println(timervalueold);
+      mySerial.print(timervalueold);
     }
+
+	mySerial.print(F("       RAM: "));          // F() macro frees up 4 bytes of RAM
+	mySerial.println(2048 - freeRam());
 
     mySerial.print(F(">"));
 
