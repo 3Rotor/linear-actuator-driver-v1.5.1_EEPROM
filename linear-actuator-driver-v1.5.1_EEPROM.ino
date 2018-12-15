@@ -104,7 +104,7 @@ void setup()
 */
 
 void loop() {
-	if (millis() > 200000) {
+	if (millis() > 400000) {
 		Serial.print("resetting ............");
 			delay(1000);
 		resetFunc(); }
