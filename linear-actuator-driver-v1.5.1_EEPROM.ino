@@ -104,7 +104,7 @@ void setup()
 */
 
 void loop() {
-	if (millis() > 1200000) {
+	if (millis() > 200000) {
 		Serial.print("resetting ............");
 			delay(1000);
 		resetFunc(); }
@@ -137,7 +137,7 @@ void loop() {
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + time2run - millis());
 			}
-			FullStop();
+			FullStop();/*
 			//go horisontal
 			Status = "Nighttime-Prepping. Going flat.";
 			Tracking = false;
@@ -155,7 +155,7 @@ void loop() {
 				comms();
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + (0.55 * time2run) - millis());
-			}
+			}*/
 			FullStop(); 
 			Status = "Nighttime";
 			Tracking = false;
