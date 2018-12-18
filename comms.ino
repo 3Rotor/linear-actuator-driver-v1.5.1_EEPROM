@@ -15,7 +15,7 @@ void comms() {
 			target_width = mySerial.readStringUntil(':').toInt();
 			aim = mySerial.readStringUntil('>').toInt();
 
-		}else { aim = mySerial.readStringUntil('>').toInt(); }
+		}else { int nullaim = mySerial.readStringUntil('>').toInt(); }
 		
 		Parse_Input();
 
