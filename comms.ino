@@ -6,7 +6,7 @@ void comms() {
 		Serial.print(F("ComsInput:  "));
 		Serial.println(ComsInput);
 
-		if (ComsInput == "WRTSTN")
+		if (ComsInput ==F("WRTSTN"))
 		{
 			time2run = mySerial.readStringUntil(':').toInt();
 			waittime = mySerial.readStringUntil(':').toInt();

@@ -1,57 +1,48 @@
 void Parse_Input()
 {
-	if ((ComsInput != "EST") &&
-		(ComsInput != "WST") &&
-		(ComsInput != "WND") &&
-		(ComsInput != "S") &&
-		(ComsInput != "HLL") &&
-		(ComsInput != "T")) {
+	if ((ComsInput != F("EST")) &&
+		(ComsInput != F("WST")) &&
+		(ComsInput != F("WND")) &&
+		(ComsInput != F("S")) &&
+		(ComsInput != F("HLL")) &&
+		(ComsInput != F("T"))) {
 
 		//DO WHAT IS NEEDED FOR SNDING BACK THE EEPROM DATA 
 
-		if (ComsInput == "SETTINGS") {
-
+		if (ComsInput == F("SETTINGS")) {
 			ReturnSettings();
-
-
-
 		}
-		if (ComsInput == "WRTSTN") {
 
+		if (ComsInput == F("WRTSTN")) {
 			BurnEEPROM();
-
-
-
 		}
-
-
 
 	}
 	else {
 		delay(20);
-		if ((ComsInput == "EST") && (Status != "Hail") && (Status != "Wind")) {
+		if ((ComsInput == F("EST")) && (Status != F("Hail")) && (Status != F("Wind"))) {
 			Tracking = false;
 			Track_East();
 		}
-		else if ((ComsInput == "WND") && (Status != "Hail") && (Status != "Wind")) {
+		else if ((ComsInput == F("WND")) && (Status != F("Hail")) && (Status != F("Wind"))) {
 			Tracking = false;
 			//ComsInput = "S";
 			Wind_Prep();
 		}
-		else if ((ComsInput == "WST") && (Status != "Hail") && (Status != "Wind")) {
+		else if ((ComsInput == F("WST")) && (Status != F("Hail")) && (Status != F("Wind"))) {
 			Tracking = false;
 			Track_West();
 		}
-		else if ((ComsInput == "S") && (Status != "Hail") && (Status != "Wind")) {
+		else if ((ComsInput == F("S")) && (Status != F("Hail")) && (Status != F("Wind"))) {
 			Tracking = false;
 			FullStop();
 		}
-		else if ((ComsInput == "HLL") && (Status != "Hail") && (Status != "Wind")) {
+		else if ((ComsInput == F("HLL")) && (Status !=F("Hail")) && (Status !=F("Wind"))) {
 			Tracking = false;
 			Hail_Prep();
 		}
-		else if ((ComsInput == "T")) {
-			Status = "prepped";
+		else if ((ComsInput ==F("T"))) {
+			Status =F("prepped");
 			Tracking = true;
 		}
 		else {

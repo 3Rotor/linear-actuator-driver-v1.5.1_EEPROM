@@ -6,7 +6,6 @@
 #include <Wire.h>
 #include <EEPROM.h>
 #include <SoftwareSerial.h>
-
 #include "vars.h"
 #include "Read_Sensors.h"
 #include "Parse_Input.h"
@@ -21,7 +20,6 @@ SoftwareSerial mySerial(5, 2); // RX, TX
 bool debug = false;
 
 void(*resetFunc) (void) = 0; //declare reset function @ address 0
-
 /*
    _____        _
   /  ___|      | |
@@ -34,31 +32,16 @@ void(*resetFunc) (void) = 0; //declare reset function @ address 0
 */
 void setup()
 {
-
-
-
 	Serial.begin(115200); // Start serial communication with Arduino
 	mySerial.begin(19200); // Start serial communication with Bluetooth module
 
-	// Write ID to EEPROM
-	int sID = 1;
-
-	//   EEPROM.write(1022, sID);
-
- //read it back
- //EEPROM Address 1022 holds the Arduino number for the PV Panel it is controlling
-
-	sID = EEPROM.read(1022);
-
-
-
+	//get all setting from EEPROM.
 	time2run = EEPROMReadlong(20);
 	waittime = EEPROMReadlong(24);
 	directsunlight = EEPROMReadlong(28);
 	daylightlevel = EEPROMReadlong(32);
 	target_width = EEPROMReadlong(36);
 	aim = EEPROMReadlong(40);
-
 
 	//Set output pins
 	pinMode(Relay1, OUTPUT); // Set pin 7 as OUTPUT
@@ -75,13 +58,13 @@ void setup()
 	for (int i = 0; i < ALW_AC; i++) {
 		ALW_readings[i] = 0;
 	}
+
+	//Sample light conditions before we start.
 	for (int i = 0; i < 50; i++) {
-		//    Calculate_Ambient_Lightlevel();
-		Read_Sensors();   Show_Telemetry(0);
-		delay(5);
+		Read_Sensors();
+		Show_Telemetry(0);
+		delay(50);
 	}
-
-
 }
 /*
   LLLLLLLLLLL                  OOOOOOOOO          OOOOOOOOO     PPPPPPPPPPPPPPPPP
@@ -106,19 +89,20 @@ void setup()
 void loop() {
 	if (millis() > 400000) {
 		Serial.print("resetting ............");
-			delay(1000);
-		resetFunc(); }
+		delay(1000);
+		resetFunc();
+	}
 
 	comms();
 
-	/*
-	   once the day is done, move the panels in a horisontal position for the night
-	   then leave the system in night time mode.
-	*/
-	if ((Status == "daylight") || (Status == "start"))
+
+	//  once the day is done, move the panels in a horisontal position for the night
+	//  then leave the system in night time mode.
+
+	if ((Status == F("daylight")) || (Status == F("start")))
 	{
 		if (Ambient_Light < 250) {
-			Status = "Nighttime-Prepping";
+			Status = F("Nighttime-Prepping");
 			Tracking = false;
 			long ttt = millis();
 			long ST_Savetime = millis();
@@ -134,7 +118,7 @@ void loop() {
 
 				}
 				comms();
-				if (Status == "prepped") break;
+				if (Status == F("prepped")) break;
 				Show_Telemetry(ttt + time2run - millis());
 			}
 			FullStop();/*
@@ -156,8 +140,8 @@ void loop() {
 				if (Status == "prepped") break;
 				Show_Telemetry(ttt + (0.55 * time2run) - millis());
 			}*/
-			FullStop(); 
-			Status = "Nighttime";
+			FullStop();
+			Status = F("Nighttime");
 			Tracking = false;
 		}
 	}
@@ -170,10 +154,10 @@ void loop() {
 	*/
 
 
-	if ((Status == "Nighttime")) {
+	if (Status == F("Nighttime")) {
 
 		if (Ambient_Light > 350) {
-			Status = "Going East for first-light ";
+			Status = F("Going East for first-light");
 			Tracking = false;
 			Track_East();
 
@@ -184,32 +168,32 @@ void loop() {
 				Read_Sensors();
 				if (millis() > (ST_Savetime + 5000)) {
 					ST_Savetime = millis();
-					Serial.print(F(" Prepping for morning startup : "));
+					Serial.print(F("Prepping for morning startup :"));
 					Serial.println(ttt + time2run - millis());
 				}
 				comms();
-				if (Status == "prepped") break;
+				if (Status == F("prepped")) break;
 				Show_Telemetry(ttt + time2run - millis());
 			}
-			Status = "prepped";
+			Status = F("prepped");
 			Tracking = false;
 			FullStop();
 		}
 	}
 
 
-	if ((Ambient_Light > daylightlevel) && (Status != "daylight") && (Status != "Hail") && (Status != "Wind"))
+	if ((Ambient_Light > daylightlevel) && (Status != F("daylight")) && (Status != F("Hail")) && (Status != F("Wind")))
 	{
 		//    if ((Ambient_Light > 800))
 
 
-		if (Status != "daylight") {
-			Status = "daylight";
+		if (Status != F("daylight")) {
+			Status = F("daylight");
 			Tracking = true;
 		}
 
 	}
-	if ((Tracking) && (Status == "daylight")) { // to get some bounce out of the clouds moving in
+	if ((Tracking) && (Status == F("daylight"))) { // to get some bounce out of the clouds moving in
 
 		if ((ALW > directsunlight) || (ALE > directsunlight))
 		{

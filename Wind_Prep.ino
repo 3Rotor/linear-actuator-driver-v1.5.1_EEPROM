@@ -1,12 +1,12 @@
 void Wind_Prep()
 {
 	long ST_Savetime = millis();
-	if (Status != "Wind") {
+	if (Status !=F("Wind")) {
 		Serial.println(Status);
 		Serial.println(F(" Prepping for high Winds."));
 		Serial.println(F(" Please strap the Panel down to the base"));
 		Serial.println(F(" On all 4 corners."));
-		Status = "Wind";
+		Status =F("Wind");
 		Tracking = false;
 		delay(20);
 		long ttt = millis();
@@ -17,7 +17,7 @@ void Wind_Prep()
 				Serial.println(ttt + time2run - millis());
 			}
 			comms();
-			if (Status == "prepped") break;
+			if (Status ==F("prepped")) break;
 
 			Track_West();
 			Show_Telemetry(ttt + time2run - millis());
@@ -31,7 +31,7 @@ void Wind_Prep()
 				Serial.println(ttt + (time2run / 2) - millis());
 			}
 			comms();
-			if (Status == "prepped") break;
+			if (Status ==F("prepped")) break;
 			Track_East();
 			Show_Telemetry(ttt + (time2run/2) - millis());
 		}
