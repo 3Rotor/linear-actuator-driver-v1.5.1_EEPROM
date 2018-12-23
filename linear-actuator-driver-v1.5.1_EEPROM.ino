@@ -46,6 +46,7 @@ void setup()
 	//Set output pins
 	pinMode(Relay1, OUTPUT); // Set pin 7 as OUTPUT
 	pinMode(Relay2, OUTPUT); // Set pin 4 as OUTPUT
+	pinMode(13, OUTPUT); // Set pin 4 as OUTPUT
 
 
 	//Blank out arrays.
@@ -87,6 +88,8 @@ void setup()
 */
 
 void loop() {
+
+
 	if (millis() > 400000) {
 		Serial.print("resetting ............");
 		delay(1000);

@@ -2,8 +2,14 @@ void Show_Telemetry(double timervalue)
 {
 
   if ( millis() > (ST_Savetime + 750)) {
-//    Calculate_Ambient_Lightlevel();
-	
+//    Pulse indicator, this will flash the P13 LED to indicate life.
+	  if (digitalRead(13)) {
+		  digitalWrite(13, LOW); 
+	  }
+	  else {
+		  digitalWrite(13, HIGH); 
+	  }
+
 	  if (debug) {
 		  Serial.println(F("***Serial commands***"));
 		  Serial.println(F("EST:  move panel East"));
