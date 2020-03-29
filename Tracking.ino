@@ -29,7 +29,7 @@ void Track_The_Sun()
 
 		}
 		if (PR <= (aim - (target_width * 0.5))) {
-			Track_East();
+      if (Allow_Backtrack)Track_East(); 
 
 		}
 
@@ -107,6 +107,8 @@ void Time_Track() {
 		if (ttt < -5) {
 			Serial.print(F(">>>>>>>>>>>>>>>>>Tracking East>>>>>Disabled>>>>>>>"));
 			Serial.println(Span);
+			if (Allow_Backtrack)Track_East(); 
+			delay(Span);
 			FullStop();
 		}
 		tttt = millis();

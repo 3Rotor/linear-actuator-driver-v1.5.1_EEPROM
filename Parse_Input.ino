@@ -41,10 +41,13 @@ void Parse_Input()
 			Tracking = false;
 			Hail_Prep();
 		}
-		else if ((ComsInput ==F("T"))) {
-			Status =F("prepped");
+		else if ((ComsInput == F("T"))) {
+			Status = F("prepped");
 			Tracking = true;
 		}
+		
+
+
 		else {
 			// Tracking = false;
 		}

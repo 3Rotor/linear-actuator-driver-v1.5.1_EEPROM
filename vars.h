@@ -19,6 +19,7 @@ unsigned long CAL_Savetime = 0; // Calculate_Ambient_Lightlevel save time
 unsigned long RS_Savetime = 0;// read sensor savetime
 double time2run = 70000;
 bool Tracking = true;
+bool Allow_Backtrack = false;
 unsigned long timervalueold = 0;
 const int LZ_AC = AC*3;
 double LZ_readings[LZ_AC];
@@ -33,3 +34,4 @@ const int ALW_AC = AC;
 double ALW_readings[ALW_AC];
 int ALW_arrayIndex = 0;
 double ALW_total = 0;
+

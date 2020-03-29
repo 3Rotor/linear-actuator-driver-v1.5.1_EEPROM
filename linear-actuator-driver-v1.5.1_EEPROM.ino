@@ -17,7 +17,7 @@
 #include "comms.h"
 
 SoftwareSerial mySerial(5, 2); // RX, TX
-bool debug = false;
+bool debug = true;
 
 void(*resetFunc) (void) = 0; //declare reset function @ address 0
 /*
@@ -42,6 +42,8 @@ void setup()
 	daylightlevel = EEPROMReadlong(32);
 	target_width = EEPROMReadlong(36);
 	aim = EEPROMReadlong(40);
+ if (EEPROMReadlong(44) == 1) { Allow_Backtrack = true; }
+ else { Allow_Backtrack = false; }
 
 	//Set output pins
 	pinMode(Relay1, OUTPUT); // Set pin 7 as OUTPUT
@@ -89,7 +91,7 @@ void setup()
 
 void loop() {
 
-
+  
 	if (millis() > 400000) {
 		Serial.print("resetting ............");
 		delay(1000);
@@ -274,6 +276,14 @@ void BurnEEPROM()
 	EEPROMWritelong(32, daylightlevel);
 	EEPROMWritelong(36, target_width);
 	EEPROMWritelong(40, aim);
+	if (Allow_Backtrack == true) {
+		EEPROMWritelong(44, 1);
+	}
+	else
+	{
+		EEPROMWritelong(44, 0);
+	}
+
 	mySerial.print(F("<"));
 	mySerial.println(F("Update Complete.......>"));
 	delay(1000);
@@ -282,7 +292,7 @@ void BurnEEPROM()
 }
 
 void ReturnSettings()
-{
+{ 
 	mySerial.print(F("<"));
 	mySerial.print(F("SETTINGS:"));
 	mySerial.print(EEPROMReadlong(20));
@@ -296,9 +306,33 @@ void ReturnSettings()
 	mySerial.print(EEPROMReadlong(36));
 	mySerial.print(F(":"));
 	mySerial.print(EEPROMReadlong(40));  //aim
+	mySerial.print(F(":"));
+	if (EEPROMReadlong(44) == 1) { mySerial.print(F("true")); }
+	else { mySerial.print(F("false")); }
 	mySerial.print(F(">"));
 	delay(40);
 
+if (debug) {
+  Serial.print(F("<"));
+  Serial.print(F("SETTINGS:"));
+  Serial.print(EEPROMReadlong(20));
+  Serial.print(F(":"));
+  Serial.print(EEPROMReadlong(24));
+  Serial.print(F(":"));
+  Serial.print(EEPROMReadlong(28));
+  Serial.print(F(":"));
+  Serial.print(EEPROMReadlong(32));
+  Serial.print(F(":"));
+  Serial.print(EEPROMReadlong(36));
+  Serial.print(F(":"));
+  Serial.print(EEPROMReadlong(40));  //aim
+  Serial.print(F(":"));
+  if (EEPROMReadlong(44) == 1) { Serial.print(F("true")); }
+  else { Serial.print(F("false")); }
+  Serial.println(F(">"));
+  Serial.print(EEPROMReadlong(44));  
+   
+  }
 }
 
 int freeRam()
