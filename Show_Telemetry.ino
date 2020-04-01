@@ -20,10 +20,6 @@ void Show_Telemetry(double timervalue)
 		  Serial.println(F("T:  Start Tracking"));
 		  Serial.println(F("*********************"));
 		  Serial.println(F(""));
-
-
-
-
 		  Serial.print(F("East Sensor:"));
 		  Serial.println(ALE);
 		  Serial.print(F("West Sensor:"));
@@ -35,8 +31,6 @@ void Show_Telemetry(double timervalue)
 		  Serial.print(F("AmbientLight:"));
 		  Serial.print(Ambient_Light);
 		  Serial.print(F("  EA:")); Serial.println(East_active);
-
-
 		  Serial.print(F("Status:"));
 		  Serial.print(Status);
 		  Serial.print(F(" WA:")); Serial.println(West_active);
@@ -60,7 +54,6 @@ void Show_Telemetry(double timervalue)
     mySerial.print(ALW);	
 	mySerial.print(F("           East: "));
 	mySerial.println(ALE);
-
     mySerial.print(F("Sun location:"));
     mySerial.print(PR); 
 	mySerial.print(F("     aim: "));
@@ -74,8 +67,7 @@ void Show_Telemetry(double timervalue)
     mySerial.print(F("Tracking:"));
     mySerial.print(Tracking); 
 	mySerial.print(F("       Target Width:")); 
-	mySerial.println(target_width); 
-    
+	mySerial.println(target_width);     
 	mySerial.print(F("Timer:")); 
 
 
@@ -89,9 +81,7 @@ void Show_Telemetry(double timervalue)
 
 	mySerial.print(F("       RAM: "));          // F() macro frees up 4 bytes of RAM
 	mySerial.println(2048 - freeRam());
-
     mySerial.print(F(">"));
-
     ST_Savetime = millis();
   }
  

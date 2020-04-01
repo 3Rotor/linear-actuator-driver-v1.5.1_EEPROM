@@ -26,9 +26,7 @@ void comms() {
     } else {
       int nullaim = mySerial.readStringUntil('>').toInt();
     }
-
     Parse_Input();
-
   }
 
   while (Serial.available() > 0) {
@@ -39,7 +37,5 @@ void comms() {
     Serial.println(ComsInput);
     Parse_Input();
   }
-
-
   delay(10);
 }

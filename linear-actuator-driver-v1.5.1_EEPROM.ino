@@ -93,7 +93,6 @@ void setup()
 
 void loop() {
 
-  
 	if (millis() > 400000) {
 		Serial.print("resetting ............");
 		delay(1000);
@@ -101,7 +100,6 @@ void loop() {
 	}
 
 	comms();
-
 
 	//  once the day is done, move the panels in a horisontal position for the night
 	//  then leave the system in night time mode.
@@ -120,9 +118,6 @@ void loop() {
 					ST_Savetime = millis();
 					Serial.print(F(" Prepping for nighttime. : "));
 					Serial.println(ttt + time2run - millis());
-
-
-
 				}
 				comms();
 				if (Status == F("prepped")) break;
@@ -153,13 +148,11 @@ void loop() {
 		}
 	}
 
-
 	/*
 	   since the system is in nighttime mode,  the panel should be horisontal
 	   as it is getting light again once ambient light levels go above 850
 	   move the panel over all the way to the east side.
 	*/
-
 
 	if (Status == F("Nighttime")) {
 
@@ -193,24 +186,20 @@ void loop() {
 	{
 		//    if ((Ambient_Light > 800))
 
-
 		if (Status != F("daylight")) {
 			Status = F("daylight");
 			Tracking = true;
 		}
-
 	}
 	if ((Tracking) && (Status == F("daylight"))) { // to get some bounce out of the clouds moving in
 
 		if ((ALW > directsunlight) || (ALE > directsunlight))
 		{
 			Track_The_Sun();
-
 		}
 		else
 		{
 			Time_Track();
-
 		}
 	}
 	Read_Sensors();
@@ -247,7 +236,6 @@ void EEPROMWritelong(int address, long value)
 	}
 }
 
-
 //This function will return a 4 byte (32bit) long from the eeprom
 //at the specified address to address + 3.
 long EEPROMReadlong(long address)
@@ -269,9 +257,7 @@ void BurnEEPROM()
 	Serial.println(F("we are now burning the eeprom:  "));
 	mySerial.print(F("<"));
 	mySerial.println(F("EEPROM Updating.......>"));
-
 	delay(500);
-
 	EEPROMWritelong(20, time2run);
 	EEPROMWritelong(24, waittime);
 	EEPROMWritelong(28, directsunlight);
@@ -287,12 +273,9 @@ void BurnEEPROM()
 	}
 	EEPROMWritelong(48, eig);
 	EEPROMWritelong(52, wig);
-
 	mySerial.print(F("<"));
 	mySerial.println(F("Update Complete.......>"));
 	delay(1000);
-
-
 }
 
 void ReturnSettings()
@@ -342,9 +325,7 @@ if (debug) {
   Serial.print(EEPROMReadlong(48));  
   Serial.print(F(":"));
   Serial.print(EEPROMReadlong(52));  
-  Serial.println(F(">"));
-  
-   
+  Serial.println(F(">"));   
   }
 }
 
