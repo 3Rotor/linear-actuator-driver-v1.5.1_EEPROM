@@ -44,6 +44,8 @@ void setup()
 	aim = EEPROMReadlong(40);
  if (EEPROMReadlong(44) == 1) { Allow_Backtrack = true; }
  else { Allow_Backtrack = false; }
+ eig = EEPROMReadlong(48);
+ wig = EEPROMReadlong(52);
 
 	//Set output pins
 	pinMode(Relay1, OUTPUT); // Set pin 7 as OUTPUT
@@ -283,6 +285,8 @@ void BurnEEPROM()
 	{
 		EEPROMWritelong(44, 0);
 	}
+	EEPROMWritelong(48, eig);
+	EEPROMWritelong(52, wig);
 
 	mySerial.print(F("<"));
 	mySerial.println(F("Update Complete.......>"));
@@ -309,6 +313,11 @@ void ReturnSettings()
 	mySerial.print(F(":"));
 	if (EEPROMReadlong(44) == 1) { mySerial.print(F("true")); }
 	else { mySerial.print(F("false")); }
+	mySerial.print(F(":"));
+	mySerial.print(EEPROMReadlong(48));  
+	mySerial.print(F(":"));
+	mySerial.print(EEPROMReadlong(52));  
+
 	mySerial.print(F(">"));
 	delay(40);
 
@@ -329,8 +338,12 @@ if (debug) {
   Serial.print(F(":"));
   if (EEPROMReadlong(44) == 1) { Serial.print(F("true")); }
   else { Serial.print(F("false")); }
+  Serial.print(F(":"));
+  Serial.print(EEPROMReadlong(48));  
+  Serial.print(F(":"));
+  Serial.print(EEPROMReadlong(52));  
   Serial.println(F(">"));
-  Serial.print(EEPROMReadlong(44));  
+  
    
   }
 }

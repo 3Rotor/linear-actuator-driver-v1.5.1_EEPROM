@@ -10,6 +10,8 @@ int daylightlevel = 400; //ambient light at wich it is considered daytime
 unsigned long waittime = 75000;
 int target_width = 50;
 int aim = 2;
+int eig = 90;
+int wig = 90;
 unsigned long Ambient_Light = 0;
 int ii = 0;
 String ComsInput;

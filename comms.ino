@@ -14,13 +14,14 @@ void comms() {
       daylightlevel = mySerial.readStringUntil(':').toInt();
       target_width = mySerial.readStringUntil(':').toInt();
       aim = mySerial.readStringUntil(':').toInt();
-      String Backtrack_in = mySerial.readStringUntil('>');
+      String Backtrack_in = mySerial.readStringUntil(':');
       if (Backtrack_in == "true") {
         Allow_Backtrack = true;
       } else {
         Allow_Backtrack = false;
       }
-
+	  eig = mySerial.readStringUntil(':').toInt();
+	  wig = mySerial.readStringUntil('>').toInt();
 
     } else {
       int nullaim = mySerial.readStringUntil('>').toInt();
