@@ -33,9 +33,13 @@ void Show_Telemetry(double timervalue)
 		  Serial.print(F("aim: "));
 		  Serial.println(aim);
 		  Serial.print(F("AmbientLight:"));
-		  Serial.println(Ambient_Light);
+		  Serial.print(Ambient_Light);
+		  Serial.print(F("  EA:")); Serial.println(East_active);
+
+
 		  Serial.print(F("Status:"));
-		  Serial.println(Status);
+		  Serial.print(Status);
+		  Serial.print(F(" WA:")); Serial.println(West_active);
 		  Serial.print(F("Tracking:"));
 		  Serial.println(Tracking);
 		  Serial.print(F("Timer:"));
@@ -62,9 +66,11 @@ void Show_Telemetry(double timervalue)
 	mySerial.print(F("     aim: "));
 	mySerial.println(aim);
     mySerial.print(F("AmbientLight:"));
-    mySerial.println(Ambient_Light);
+    mySerial.print(Ambient_Light);
+	mySerial.print(F(" EA:")); mySerial.println(East_active);
     mySerial.print(F("Status:"));
-    mySerial.println(Status);
+    mySerial.print(Status);
+	mySerial.print(F(" WA:")); mySerial.println(West_active);
     mySerial.print(F("Tracking:"));
     mySerial.print(Tracking); 
 	mySerial.print(F("       Target Width:")); 

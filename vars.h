@@ -37,3 +37,7 @@ double ALW_readings[ALW_AC];
 int ALW_arrayIndex = 0;
 double ALW_total = 0;
 
+long East_active = 0;
+long West_active = 0;
+
+

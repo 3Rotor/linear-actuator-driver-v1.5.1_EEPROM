@@ -1,28 +1,37 @@
 
 void Track_West()
 {
-	delay(100);
-	digitalWrite(Relay2, LOW);
-	digitalWrite(Relay1, HIGH);
+	West_active = millis();
+	if (millis() < East_active + 2000) {
+		FullStop(); 
+		delay(2000);
+	}else {
+		delay(100);
+		digitalWrite(Relay2, LOW);
+		digitalWrite(Relay1, HIGH);
+	}
 }
 
 void Track_East()
 {
-	delay(100);
-	digitalWrite(Relay1, LOW);
-	digitalWrite(Relay2, HIGH);
+	East_active = millis();
+	if (millis() < West_active + 2000) {
+		FullStop();
+		delay(2000);
+	}else {
+		delay(100);
+		digitalWrite(Relay1, LOW);
+		digitalWrite(Relay2, HIGH);	
+	}
 }
 
 void Track_The_Sun()
 {
 
 	if ((PR <= (aim + (target_width * 0.5))) && (PR >= (aim - (target_width * 0.5)))) {
-
 		//we are on target, stop moving.
 		FullStop();
-
-	}
-	else {
+	}else {
 
 		if (PR >= (aim + (target_width * 0.5))) {
 			Track_West();
@@ -32,18 +41,12 @@ void Track_The_Sun()
       if (Allow_Backtrack)Track_East(); 
 
 		}
-
 	}
 	Show_Telemetry(0);
-
-
 }
 
 //get average of the Ambient Light
 void Calculate_Ambient_Lightlevel() {
-
-
-
 
 	if (millis() > (CAL_Savetime + 5)) {
 		for (int i = 0; i < AC; i++) {
@@ -93,9 +96,6 @@ void Time_Track() {
 	Span = LZ_total / LZ_AC;
 
 
-
-
-
 	if (millis() >= tttt + waittime) {
 		delay(50);
 		if (ttt > 5) {
@@ -118,4 +118,3 @@ void Time_Track() {
 	Show_Telemetry(tttt + waittime - millis());
 
 }
-
