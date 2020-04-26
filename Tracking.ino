@@ -39,8 +39,10 @@ void Track_The_Sun()
 		}
 		if (PR <= (aim - (target_width * 0.5))) {
       if (Allow_Backtrack)Track_East(); 
+	  
 
 		}
+		FullStop(); delay(4000);
 	}
 	Show_Telemetry(0);
 }

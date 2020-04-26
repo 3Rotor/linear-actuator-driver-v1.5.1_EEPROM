@@ -76,14 +76,14 @@ void setup()
   L:::::::::L                OO:::::::::OO      OO:::::::::OO   P::::::::::::::::P
   L:::::::::L              OO:::::::::::::OO  OO:::::::::::::OO P::::::PPPPPP:::::P
   LL:::::::LL             O:::::::OOO:::::::OO:::::::OOO:::::::OPP:::::P     P:::::P
-	L:::::L               O::::::O   O::::::OO::::::O   O::::::O  P::::P     P:::::P
-	L:::::L               O:::::O     O:::::OO:::::O     O:::::O  P::::P     P:::::P
-	L:::::L               O:::::O     O:::::OO:::::O     O:::::O  P::::PPPPPP:::::P
-	L:::::L               O:::::O     O:::::OO:::::O     O:::::O  P:::::::::::::PP
-	L:::::L               O:::::O     O:::::OO:::::O     O:::::O  P::::PPPPPPPPP
-	L:::::L               O:::::O     O:::::OO:::::O     O:::::O  P::::P
-	L:::::L               O:::::O     O:::::OO:::::O     O:::::O  P::::P
-	L:::::L         LLLLLLO::::::O   O::::::OO::::::O   O::::::O  P::::P
+	 L:::::L               O::::::O    O::::::OO::::::O   O::::::O  P::::P     P:::::P
+	 L:::::L               O:::::O      O:::::OO:::::O     O:::::O  P::::P     P:::::P
+	 L:::::L               O:::::O      O:::::OO:::::O     O:::::O  P::::PPPPPP:::::P
+	 L:::::L               O:::::O      O:::::OO:::::O     O:::::O  P:::::::::::::PP
+	 L:::::L               O:::::O      O:::::OO:::::O     O:::::O  P::::PPPPPPPPP
+	 L:::::L               O:::::O      O:::::OO:::::O     O:::::O  P::::P
+	 L:::::L               O:::::O      O:::::OO:::::O     O:::::O  P::::P
+	 L:::::L         LLLLLLO::::::O    O::::::OO::::::O   O::::::O  P::::P
   LL:::::::LLLLLLLLL:::::LO:::::::OOO:::::::OO:::::::OOO:::::::OPP::::::PP
   L::::::::::::::::::::::L OO:::::::::::::OO  OO:::::::::::::OO P::::::::P
   L::::::::::::::::::::::L   OO:::::::::OO      OO:::::::::OO   P::::::::P
@@ -93,9 +93,9 @@ void setup()
 
 void loop() {
 
-	if (millis() > 400000) {
+	if (millis() > 700000) {
 		Serial.print("resetting ............");
-		delay(1000);
+		delay(100);
 		resetFunc();
 	}
 
