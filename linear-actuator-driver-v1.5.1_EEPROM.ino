@@ -1,3 +1,5 @@
+#include <TinyGPS.h>
+
 //  The FUCK ESKOM Project.
 //  For controlling a 12v DC driven Chinesium Linear actuator with no positional feedback.
 //  Solar location input can be used for precise tracking.
